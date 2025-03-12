@@ -15,13 +15,12 @@ new_post = {
 def create_post():
     response = requests.post(BASE_URL, json=new_post)
     yield response
-    #requests.delete(f"{BASE_URL}/{response.json()['id']}")  # Удаляет пост после теста
+
 
 
 class TestCreatePost:
     @allure.title('Проверяем что код ответа = 201')
     def test_create_post_status_code(self, create_post):
-        """Тест на создание нового поста."""
         assert create_post.status_code == 201, f"Expected status code 201, but got {create_post.status_code}"
 
     @allure.title('Проверяем что в теле ответа присутствует ID поста')
